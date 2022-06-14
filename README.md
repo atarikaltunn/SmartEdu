@@ -1,1 +1,2 @@
-"# smartEdu" 
+# SmartEdu
+SmartEdu is an education portal that teachers are able to share courses and students can take these courses. It is my 2nd NodeJS proejct that will have more feature than my 1st project clean blog.
