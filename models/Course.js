@@ -27,6 +27,7 @@ const CourseSchema = new Schema({
     },
 });
 
+//ensures the slug is created before the data is sent to the database
 CourseSchema.pre('validate', function (next) {
     this.slug = slugify(this.name, {
         lower: true,

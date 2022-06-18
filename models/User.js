@@ -19,6 +19,7 @@ const UserSchema = new Schema({
     },
 });
 
+//ensures the password is encrypted before the password is sent to the database
 UserSchema.pre('save', function (next) {
     const user = this;
     bcrypt.hash(user.password, 10, (error, hash) => {
