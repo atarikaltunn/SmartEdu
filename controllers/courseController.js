@@ -4,11 +4,13 @@ const Course = require('../models/Course');
 //creates course
 exports.createCourse = async (req, res) => {
     try {
-        const course = await Course.create(req.body);
-        res.status(201).json({
-            status: 'success',
-            course,
+        const course = await Course.create({
+            name: req.body.name,
+            description: req.body.description,
+            category: req.body.category,
+            user: req.session.userID,
         });
+        res.status(201).redirect('/courses');
     } catch (error) {
         res.status(400).json({
             status: 'fail',
@@ -20,13 +22,12 @@ exports.createCourse = async (req, res) => {
 //returns all courses
 exports.getAllCourses = async (req, res) => {
     try {
-
         const categorySlug = req.query.categories;
-        const category = await Category.findOne({slug: categorySlug})
+        const category = await Category.findOne({ slug: categorySlug });
 
         let filter = {};
-        if(categorySlug){
-            filter = {category: category._id}
+        if (categorySlug) {
+            filter = { category: category._id };
         }
 
         const courses = await Course.find(filter);
@@ -35,7 +36,7 @@ exports.getAllCourses = async (req, res) => {
         res.status(200).render('courses', {
             courses,
             categories,
-            page_name: "courses"
+            page_name: 'courses',
         });
     } catch (error) {
         res.status(400).json({
@@ -48,10 +49,10 @@ exports.getAllCourses = async (req, res) => {
 //return only a course
 exports.getCourse = async (req, res) => {
     try {
-        const course = await Course.findOne({slug: req.params.slug});
+        const course = await Course.findOne({ slug: req.params.slug }).populate('user');
         res.status(200).render('course', {
             course,
-            page_name: "courses"
+            page_name: 'courses',
         });
     } catch (error) {
         res.status(400).json({

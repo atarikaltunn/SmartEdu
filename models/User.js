@@ -17,6 +17,11 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
+    role: {
+        type: String,
+        enum: ['student', 'teacher', 'admin'],
+        default: 'student',
+    },
 });
 
 //ensures the password is encrypted before the password is sent to the database

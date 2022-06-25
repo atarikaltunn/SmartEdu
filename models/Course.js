@@ -25,6 +25,10 @@ const CourseSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
 });
 
 //ensures the slug is created before the data is sent to the database
