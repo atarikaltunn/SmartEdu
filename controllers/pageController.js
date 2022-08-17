@@ -1,3 +1,6 @@
+const nodemailer = require("nodemailer");
+
+
 //renders index/main page
 exports.getIndexPage = (req, res) => {
     console.log(req.session.userID);
@@ -25,4 +28,23 @@ exports.getLoginPage = (req, res) => {
     res.status(200).render('login', {
         page_name: 'login',
     });
+};
+
+exports.getContactPage = (req, res) => {
+    res.status(200).render('contact', {
+        page_name: 'contact',
+    });
+};
+
+exports.sendMail = (req, res) => {
+    const message = `
+    <h1>Mail Details:</h1>
+    <ul>
+        <li>Name:  ${req.body.name}</li>
+        <li>email: ${req.body.name}</li>
+    </ul>
+
+    <h1>Message:</h1>
+    <p>${req.body.message}</p>
+    `
 };
